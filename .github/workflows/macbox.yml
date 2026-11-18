@@ -10,8 +10,13 @@ jobs:
           KEY: ${{ secrets.TE4_DEPLOY_KEY }}
         run: |
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
-          printf '%s\n' "$KEY" > ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
+          printf '%s\n' "$KEY" > ~/.ssh/te4_deploy && chmod 600 ~/.ssh/te4_deploy
           ssh-keyscan git.net-core.org >> ~/.ssh/known_hosts
+          cat >> ~/.ssh/config <<'EOF'
+          Host git.net-core.org
+            IdentityFile ~/.ssh/te4_deploy
+            IdentitiesOnly yes
+          EOF
       - name: Tools
         run: brew install ninja
       - name: Shell
