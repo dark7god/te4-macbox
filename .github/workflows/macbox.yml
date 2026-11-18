@@ -15,6 +15,6 @@ jobs:
       - name: Tools
         run: brew install ninja
       - name: Shell
-        uses: mxschmitt/action-tmate@v3
+        uses: lhotari/action-upterm@v1
         with:
           limit-access-to-actor: true
